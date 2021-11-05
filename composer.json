@@ -1,0 +1,26 @@
+{
+    "name": "rdmarwein/formbuilder",
+    "description": "Generate Forms",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Rdmarwein\\Formbuilder\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "RDMarwein",
+            "email": "dapbor88@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Rdmarwein\\Formbuilder\\FormBuilderServiceProvider"
+            ]
+        }
+    }
+}
