@@ -15,6 +15,12 @@ class FormBuilderServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->loadRoutesFrom(__DIR__.'/routes/web.php');
+        $this->loadViewsFrom(__DIR__.'/views', 'formbuilder');
+        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
+        $router = $this->app->make(Router::class);
+        $this->publishes([
+            __DIR__.'/assets' => public_path('rdmarwein/formbuilder'),
+        ], 'public');
     }
 
     /**

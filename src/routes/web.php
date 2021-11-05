@@ -1,5 +1,9 @@
 <?php
 
-Route::get('/formbuilder', function () {
-    return "formbuilder";
+Route::group(['middleware' => 'web','namespace'=>'Rdmarwein\Formbuilder\Http\Controllers'], function()
+{
+    Route::get('formbuilder/{id}','FormBuilderController@index')->name('formIndex');
+    Route::get('formbuilder/create/{id}','FormBuilderController@create')->name('formCreate');
+    Route::post('formbuilder/{id}','FormBuilderController@store');
 });
+
