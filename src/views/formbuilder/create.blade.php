@@ -23,7 +23,7 @@ $(document).ready(function()
 	    return jSON;
 	}
 
-	
+
 	$(function () {
 		$("select").select2();
 	});
@@ -95,6 +95,11 @@ $(document).ready(function()
 					    @endif
                     @endif
                 @endforeach
+                </div>
+                <div class="card-footer">
+                    <div class="offset-md-5">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
                 </div>
             </div>
         </div>

@@ -33,8 +33,8 @@ class FormBuilderController extends Controller
         $model= $formMaster->model::all();
         $columns = \DB::connection()->getSchemaBuilder()->getColumnListing($formMaster->table_name);
 
-        $masterKey=json_decode($formMaster->master_keys, true); 
-        $master=array();       
+        $masterKey=json_decode($formMaster->master_keys, true);
+        $master=array();
         if(sizeof((array)$masterKey)>0)
         {
             foreach (array_keys($masterKey) as $item) {
@@ -56,14 +56,22 @@ class FormBuilderController extends Controller
         }
         $exclude=json_decode($formMaster->exclude);
         $inputType=array();
-        
+        $attribute=json_decode($formMaster->attribute, true);
+        return $attribute['type'];
+        if(sizeof($attribute['type'])>0)
+        {
+            foreach (array_keys($attribute['type']) as $key) {
+                $inputType[$key]=$type[$key];
+            }
+        }
+
         if($formMaster->route=='formbuilder')
         {
-            return view('formbuilder::formbuilder.create',compact('columns','formMaster','select','master','exclude'));
+            return view('formbuilder::formbuilder.create',compact('columns','formMaster','select','master','exclude','inputType'));
         }
         else{
 
-        }        
+        }
     }
 
     /**
@@ -74,7 +82,26 @@ class FormBuilderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $formMaster=FormMaster::findOrFail($request->id);
+        $values=$formMaster->model;
+        $data=new $values;
+        $except=array('_token','_method','redirect');
+        foreach ($request->all() as $key => $value) {
+            if(!in_array($key, $except))
+            {
+                $data-> $key = $value;
+            }
+        }
+        $data->save();
+        if(isset($request->redirect) && $request->redirect!='')
+        {
+            return redirect($request->redirect)->with(['message'=> 'Added Successfully','data'=>$data]);
+        }
+        else
+        {
+            return redirect()->back()->with(['message'=> 'Added Successfully','data'=>$data]);
+        }
+
     }
 
     /**
