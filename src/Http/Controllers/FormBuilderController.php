@@ -55,19 +55,10 @@ class FormBuilderController extends Controller
             }
         }
         $exclude=json_decode($formMaster->exclude);
-        $inputType=array();
         $attribute=json_decode($formMaster->attribute, true);
-        return $attribute['type'];
-        if(sizeof($attribute['type'])>0)
-        {
-            foreach (array_keys($attribute['type']) as $key) {
-                $inputType[$key]=$type[$key];
-            }
-        }
-
         if($formMaster->route=='formbuilder')
         {
-            return view('formbuilder::formbuilder.create',compact('columns','formMaster','select','master','exclude','inputType'));
+            return view('formbuilder::formbuilder.create',compact('columns','formMaster','select','master','exclude','attribute'));
         }
         else{
 
