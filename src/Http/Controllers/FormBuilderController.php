@@ -17,16 +17,24 @@ class FormBuilderController extends Controller
 
     public function index($id,Request $request)
     {
-        // return "hello";
-        $role=FormMaster::findOrFail($request->id);
-        return $role;
+        $formMaster=FormMaster::findOrFail($request->id);
+        $model= $formMaster->model::all();
+        $columns = \DB::connection()->getSchemaBuilder()->getColumnListing($formMaster->table_name);
+
+        $masterKey=json_decode($formMaster->master_keys, true);
+        
+        $foreign=json_decode($formMaster->foreign_keys, true);
+        
+        $exclude=json_decode($formMaster->exclude, true);
+        if($formMaster->route=='formbuilder')
+        {
+            return view('formbuilder::formbuilder.index',compact('columns','formMaster','foreign','masterKey','exclude'));
+        }
+        else{
+
+        }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create($id,Request $request)
     {
         $formMaster=FormMaster::findOrFail($request->id);
@@ -38,8 +46,7 @@ class FormBuilderController extends Controller
         if(sizeof((array)$masterKey)>0)
         {
             foreach (array_keys($masterKey) as $item) {
-                $values=$item;
-                $data=$values::all();
+                $data=$item::all();
                 $master[$masterKey[$item][2]]=array($data,$masterKey[$item][0],$masterKey[$item][1],$masterKey[$item][3]);
             }
         }
@@ -49,12 +56,11 @@ class FormBuilderController extends Controller
         if(sizeof((array)$foreign)>0)
         {
             foreach (array_keys($foreign) as $key) {
-                $values=$key;
-                $data=$values::all();
+                $data=$key::all();
                 $select[$foreign[$key][0]]=array($data,$foreign[$key][1],$foreign[$key][2]);
             }
         }
-        $exclude=json_decode($formMaster->exclude);
+        $exclude=json_decode($formMaster->exclude, true);
         $attribute=json_decode($formMaster->attribute, true);
         if($formMaster->route=='formbuilder')
         {
@@ -65,12 +71,7 @@ class FormBuilderController extends Controller
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         $formMaster=FormMaster::findOrFail($request->id);
@@ -92,49 +93,23 @@ class FormBuilderController extends Controller
         {
             return redirect()->back()->with(['message'=> 'Added Successfully','data'=>$data]);
         }
-
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //
