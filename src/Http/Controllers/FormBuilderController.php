@@ -28,7 +28,7 @@ class FormBuilderController extends Controller
         $exclude=json_decode($formMaster->exclude, true);
         if($formMaster->route=='formbuilder')
         {
-            return view('formbuilder::formbuilder.index',compact('columns','formMaster','foreign','masterKey','exclude'));
+            return view('formbuilder::formbuilder.index',compact('columns','formMaster','foreign','masterKey','exclude','model'));
         }
         else{
 
@@ -38,7 +38,6 @@ class FormBuilderController extends Controller
     public function create($id,Request $request)
     {
         $formMaster=FormMaster::findOrFail($request->id);
-        $model= $formMaster->model::all();
         $columns = \DB::connection()->getSchemaBuilder()->getColumnListing($formMaster->table_name);
 
         $masterKey=json_decode($formMaster->master_keys, true);
