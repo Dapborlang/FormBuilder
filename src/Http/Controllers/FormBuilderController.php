@@ -102,6 +102,7 @@ class FormBuilderController extends Controller
     public function edit($id,$cid)
     {
         $formMaster=FormMaster::findOrFail($id);
+        $model= $formMaster->model::findOrFail($cid);
         $columns = \DB::connection()->getSchemaBuilder()->getColumnListing($formMaster->table_name);
 
         $masterKey=json_decode($formMaster->master_keys, true);
@@ -127,7 +128,7 @@ class FormBuilderController extends Controller
         $attribute=json_decode($formMaster->attribute, true);
         if($formMaster->route=='formbuilder')
         {
-            return view('formbuilder::formbuilder.edit',compact('columns','formMaster','select','master','exclude','attribute'));
+            return view('formbuilder::formbuilder.edit',compact('columns','formMaster','select','master','exclude','attribute','model'));
         }
         else{
 
