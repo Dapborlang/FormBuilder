@@ -25,10 +25,18 @@ class FormBuilderController extends Controller
         
         $foreign=json_decode($formMaster->foreign_keys, true);
         
+        $select=array();
+        if(sizeof((array)$foreign)>0)
+        {
+            foreach (array_keys($foreign) as $key) {
+                $select[$foreign[$key][0]]=array($key,$foreign[$key][2]);
+            }
+        }
+        
         $exclude=json_decode($formMaster->exclude, true);
         if($formMaster->route=='formbuilder')
         {
-            return view('formbuilder::formbuilder.index',compact('columns','formMaster','foreign','masterKey','exclude','model'));
+            return view('formbuilder::formbuilder.index',compact('columns','formMaster','select','masterKey','exclude','model'));
         }
         else{
 
