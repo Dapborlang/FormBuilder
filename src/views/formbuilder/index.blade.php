@@ -39,7 +39,9 @@
 							<td>{{$item1->$item}}</td>
 						@endif
 					@endforeach
-					<td></td>
+					<td>
+					  <a class="btn btn-info" href="{{ url('/') }}/formbuilder/edit/{{$formMaster->id}}/{{$item1->id}}">Edit</a>
+					</td>
 				</tr>
 				@endforeach
 
