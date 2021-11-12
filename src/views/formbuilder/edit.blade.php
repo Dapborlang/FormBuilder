@@ -37,7 +37,7 @@ $(document).ready(function()
 	        {{ session()->get('message') }}
 	    </div>
 	@endif
-    <form method="POST" action="{{ url('/') }}/formbuilder/{{$formMaster->id}}" target="">
+    <form method="POST" action="{{ url('/') }}/formbuilder/{{$formMaster->id}}/{{$model->id}}" target="">
         {{ csrf_field() }}
         {{ method_field('PUT') }}
         <div class="card bg-secondary text-white">
@@ -79,7 +79,7 @@ $(document).ready(function()
                                     <label for="{{$item}}">{{$title}}</label>
                                     @if(array_key_exists($item, $select))
                                     <select class="form-control" id="{{$item}}" name="{{$item}}">
-                                    <option value="">--Select {{$title}}--</option>
+                                    <option value="{{$model-> $item}}">({{$model-> $item}}) NO CHANGES</option>
                                         @foreach($select[$item][0] as $data)
                                         @php
                                             $val=$select[$item][1];
@@ -90,11 +90,11 @@ $(document).ready(function()
                                     </select>
                                     @else
                                         @if(!isset($attribute['type'][$item]))
-                                            <input type="text" class="form-control  form-control-sm" id="{{$item}}" name="{{$item}}" @if(isset($attribute) && array_key_exists($item, $attribute)) {{$attribute[$item]}} @endif>
+                                            <input type="text" class="form-control  form-control-sm" id="{{$item}}" name="{{$item}}" @if(isset($attribute) && array_key_exists($item, $attribute)) {{$attribute[$item]}} @endif value="{{$model-> $item}}">
                                         @elseif($attribute['type'][$item]=='textarea')
-                                            <textarea class="form-control " id="{{$item}}" name="{{$item}}" @if(isset($attribute) && array_key_exists($item, $attribute)) {{$attribute[$item]}} @endif></textarea>
+                                            <textarea class="form-control " id="{{$item}}" name="{{$item}}" @if(isset($attribute) && array_key_exists($item, $attribute)) {{$attribute[$item]}} @endif>{{$model-> $item}}</textarea>
                                         @else
-                                            <input type="{{$attribute['type'][$item]}}" class="form-control  form-control-sm" id="{{$item}}" name="{{$item}}" @if(isset($attribute) && array_key_exists($item, $attribute)) {{$attribute[$item]}} @endif>
+                                            <input type="{{$attribute['type'][$item]}}" class="form-control  form-control-sm" id="{{$item}}" name="{{$item}}" @if(isset($attribute) && array_key_exists($item, $attribute)) {{$attribute[$item]}} @endif value="{{$model-> $item}}">
                                         @endif
                                     @endif
                                 </div>
@@ -105,7 +105,7 @@ $(document).ready(function()
                 </div>
                 <div class="card-footer">
                     <div class="offset-md-5">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
                     </div>
                 </div>
             </div>

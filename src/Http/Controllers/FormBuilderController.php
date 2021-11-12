@@ -135,9 +135,20 @@ class FormBuilderController extends Controller
         }
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id,$cid)
     {
-        //
+        $formMaster=FormMaster::findOrFail($request->id);
+        $values=$formMaster->model;
+        $data=$values::findOrFail($cid);
+        $except=array('_token','_method','redirect');
+        foreach ($request->all() as $key => $value) {
+            if(!in_array($key, $except))
+            {
+                $data-> $key = $value;
+            }
+        }
+        $data->save();
+        return redirect()->back()->with(['message'=> 'Added Successfully','data'=>$data]);
     }
 
     public function destroy($id)
