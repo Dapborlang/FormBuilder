@@ -32,7 +32,7 @@ class FormBuilderController extends Controller
         }
         
         $exclude=json_decode($formMaster->exclude, true);
-        if($formMaster->route=='formbuilder')
+        if($formMaster->view=='formbuilder')
         {
             return view('formbuilder::formbuilder.index',compact('columns','formMaster','select','exclude','model'));
         }
@@ -57,7 +57,7 @@ class FormBuilderController extends Controller
         }
         $exclude=json_decode($formMaster->exclude, true);
         $attribute=json_decode($formMaster->attribute, true);
-        if($formMaster->route=='formbuilder')
+        if($formMaster->view=='formbuilder')
         {
             return view('formbuilder::formbuilder.create',compact('columns','formMaster','select','exclude','attribute'));
         }
@@ -112,7 +112,7 @@ class FormBuilderController extends Controller
         }
         $exclude=json_decode($formMaster->exclude, true);
         $attribute=json_decode($formMaster->attribute, true);
-        if($formMaster->route=='formbuilder')
+        if($formMaster->view=='formbuilder')
         {
             return view('formbuilder::formbuilder.edit',compact('columns','formMaster','select','exclude','attribute','model'));
         }

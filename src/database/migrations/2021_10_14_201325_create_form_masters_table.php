@@ -19,6 +19,7 @@ class CreateFormMastersTable extends Migration
             $table->string("table_name");
             $table->json("exclude")->nullable();
             $table->string("model");
+            $table->string("view");
             $table->string("route");
             $table->string("role");
             $table->json("foreign_keys")->nullable();
@@ -33,6 +34,7 @@ class CreateFormMastersTable extends Migration
                 'table_name' => 'form_role_names',
                 'exclude'=>'[]',
                 'model' => 'Rdmarwein\Formbuilder\FormRoleName',
+                'view' => 'formbuilder',
                 'route' => 'formbuilder',
                 'role' => 'ADM',
                 'foreign_keys'=>null,
@@ -44,6 +46,7 @@ class CreateFormMastersTable extends Migration
                     'table_name' => 'form_roles',
                     'exclude'=>'[]',
                     'model' => 'Rdmarwein\Formbuilder\FormRole',
+                    'view' => 'formbuilder',
                     'route' => 'formbuilder',
                     'role' => 'ADM',
                     'foreign_keys'=>'{
@@ -65,6 +68,7 @@ class CreateFormMastersTable extends Migration
                     'table_name' => 'form_masters',
                     'exclude'=>'[]',
                     'model' => 'Rdmarwein\Formbuilder\FormMaster',
+                    'view' => 'formbuilder',
                     'route' => 'formbuilder',
                     'role' => 'ADM',
                     'foreign_keys'=>'{
@@ -80,6 +84,11 @@ class CreateFormMastersTable extends Migration
                             "attribute":"textarea", 
                             "foreign_keys":"textarea", 
                             "master_keys":"textarea" 
+                        },
+                        "value":
+                        {
+                            "view":"formbuilder",
+                            "route":"formbuilder"
                         } 
                     }'
                 ]
