@@ -20,8 +20,6 @@ class FormBuilderController extends Controller
         $formMaster=FormMaster::findOrFail($request->id);
         $model= $formMaster->model::all();
         $columns = \DB::connection()->getSchemaBuilder()->getColumnListing($formMaster->table_name);
-
-        $masterKey=json_decode($formMaster->master_keys, true);
         
         $foreign=json_decode($formMaster->foreign_keys, true);
         
@@ -36,7 +34,7 @@ class FormBuilderController extends Controller
         $exclude=json_decode($formMaster->exclude, true);
         if($formMaster->route=='formbuilder')
         {
-            return view('formbuilder::formbuilder.index',compact('columns','formMaster','select','masterKey','exclude','model'));
+            return view('formbuilder::formbuilder.index',compact('columns','formMaster','select','exclude','model'));
         }
         else{
 
@@ -47,16 +45,6 @@ class FormBuilderController extends Controller
     {
         $formMaster=FormMaster::findOrFail($request->id);
         $columns = \DB::connection()->getSchemaBuilder()->getColumnListing($formMaster->table_name);
-
-        $masterKey=json_decode($formMaster->master_keys, true);
-        $master=array();
-        if(sizeof((array)$masterKey)>0)
-        {
-            foreach (array_keys($masterKey) as $item) {
-                $data=$item::all();
-                $master[$masterKey[$item][2]]=array($data,$masterKey[$item][0],$masterKey[$item][1],$masterKey[$item][3]);
-            }
-        }
 
         $foreign=json_decode($formMaster->foreign_keys, true);
         $select=array();
@@ -71,7 +59,7 @@ class FormBuilderController extends Controller
         $attribute=json_decode($formMaster->attribute, true);
         if($formMaster->route=='formbuilder')
         {
-            return view('formbuilder::formbuilder.create',compact('columns','formMaster','select','master','exclude','attribute'));
+            return view('formbuilder::formbuilder.create',compact('columns','formMaster','select','exclude','attribute'));
         }
         else{
 
@@ -113,16 +101,6 @@ class FormBuilderController extends Controller
         $model= $formMaster->model::findOrFail($cid);
         $columns = \DB::connection()->getSchemaBuilder()->getColumnListing($formMaster->table_name);
 
-        $masterKey=json_decode($formMaster->master_keys, true);
-        $master=array();
-        if(sizeof((array)$masterKey)>0)
-        {
-            foreach (array_keys($masterKey) as $item) {
-                $data=$item::all();
-                $master[$masterKey[$item][2]]=array($data,$masterKey[$item][0],$masterKey[$item][1],$masterKey[$item][3]);
-            }
-        }
-
         $foreign=json_decode($formMaster->foreign_keys, true);
         $select=array();
         if(sizeof((array)$foreign)>0)
@@ -136,7 +114,7 @@ class FormBuilderController extends Controller
         $attribute=json_decode($formMaster->attribute, true);
         if($formMaster->route=='formbuilder')
         {
-            return view('formbuilder::formbuilder.edit',compact('columns','formMaster','select','master','exclude','attribute','model'));
+            return view('formbuilder::formbuilder.edit',compact('columns','formMaster','select','exclude','attribute','model'));
         }
         else{
 

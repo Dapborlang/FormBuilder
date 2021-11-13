@@ -4,30 +4,9 @@
 <link href="{{ asset('rdmarwein/formbuilder/css/select2.min.css') }}" rel="stylesheet">
 <script src="{{ asset('rdmarwein/formbuilder/js/select2.full.min.js') }}"></script>
 <script>
-$(document).ready(function()
-{
- 	function getUrlData(urlToFetch)
-  	{
-  		var jSON;
-	  	$.ajax({
-	        url: "{{ url('/') }}/"+urlToFetch,
-	        type: 'GET',
-	        async: false,
-	        data: {
-	        },
-	        success: function(data)
-	        {
-	        	jSON=data;
-	        }
-	    });
-	    return jSON;
-	}
-
-
 	$(function () {
 		$("select").select2();
 	});
-});
 </script>
 @endsection
 @section('content')
@@ -48,57 +27,31 @@ $(document).ready(function()
                         @php
                             $title=ucwords(str_replace('_',' ',$item));
                         @endphp
-                        @if(array_key_exists($item, $master))
-                            <div class="col-sm-6 col-xl-4" id="{{$item}}1">
-                                <div class="form-group">
-                                    <label for="{{$master[$item][2]}}">{{ucwords(str_replace('_',' ',$master[$item][2]))}}</label>
-                                    <select type="text" class="form-control" id="{{$master[$item][2]}}">
-                                        <option value="">--Select {{ucwords(str_replace('_',' ',$master[$item][2]))}}--</option>
-                                        @foreach($master[$item][0] as $data)
-                                        @php
-                                            $val=$master[$item][1];
-                                            $det=$master[$item][2];
-                                        @endphp
-                                            <option value="{{$data->$val}}">{{$data->$det}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-xl-4" id="{{$item}}2">
-                                <div class="form-group">
-                                    <label for="{{$item}}">{{ucwords(str_replace('_',' ',$master[$item][3]))}}</label>
-                                    <select type="text" class="form-control" id="{{$item}}" name="{{$item}}">
-                                        <option value="">--Select {{$title}}--</option>
-                                    </select>
-                                </div>
-                            </div>
-					    @else
-                            <div class="col-sm-6 col-xl-4" id="{{$item}}1">
-                                <div class="form-group">
-                                    <label for="{{$item}}">{{$title}}</label>
-                                    @if(array_key_exists($item, $select))
-                                    <select class="form-control" id="{{$item}}" name="{{$item}}">
+                        <div class="col-sm-6 col-xl-4" id="{{$item}}1">
+                            <div class="form-group">
+                                <label for="{{$item}}">{{$title}}</label>
+                                @if(array_key_exists($item, $select))
+                                <select class="form-control" id="{{$item}}" name="{{$item}}">
                                     <option value="">--Select {{$title}}--</option>
-                                        @foreach($select[$item][0] as $data)
-                                        @php
-                                            $val=$select[$item][1];
-                                            $det=$select[$item][2];
-                                        @endphp
-                                            <option value="{{$data->$val}}">{{$data->$det}}</option>
-                                        @endforeach
-                                    </select>
+                                    @foreach($select[$item][0] as $data)
+                                    @php
+                                        $val=$select[$item][1];
+                                        $det=$select[$item][2];
+                                    @endphp
+                                        <option value="{{$data->$val}}">{{$data->$det}}</option>
+                                    @endforeach
+                                </select>
+                                @else
+                                    @if(!isset($attribute['type'][$item]))
+                                        <input type="text" class="form-control  form-control-sm" id="{{$item}}" name="{{$item}}" @if(isset($attribute) && array_key_exists($item, $attribute)) {{$attribute[$item]}} @endif>
+                                    @elseif($attribute['type'][$item]=='textarea')
+                                        <textarea class="form-control " id="{{$item}}" name="{{$item}}" @if(isset($attribute) && array_key_exists($item, $attribute)) {{$attribute[$item]}} @endif></textarea>
                                     @else
-                                        @if(!isset($attribute['type'][$item]))
-                                            <input type="text" class="form-control  form-control-sm" id="{{$item}}" name="{{$item}}" @if(isset($attribute) && array_key_exists($item, $attribute)) {{$attribute[$item]}} @endif>
-                                        @elseif($attribute['type'][$item]=='textarea')
-                                            <textarea class="form-control " id="{{$item}}" name="{{$item}}" @if(isset($attribute) && array_key_exists($item, $attribute)) {{$attribute[$item]}} @endif></textarea>
-                                        @else
-                                            <input type="{{$attribute['type'][$item]}}" class="form-control  form-control-sm" id="{{$item}}" name="{{$item}}" @if(isset($attribute) && array_key_exists($item, $attribute)) {{$attribute[$item]}} @endif>
-                                        @endif
+                                        <input type="{{$attribute['type'][$item]}}" class="form-control  form-control-sm" id="{{$item}}" name="{{$item}}" @if(isset($attribute) && array_key_exists($item, $attribute)) {{$attribute[$item]}} @endif>
                                     @endif
-                                </div>
+                                @endif
                             </div>
-					    @endif
+                        </div>
                     @endif
                 @endforeach
                 </div>

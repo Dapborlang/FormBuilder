@@ -21,7 +21,6 @@ class CreateFormMastersTable extends Migration
             $table->string("model");
             $table->string("route");
             $table->string("role");
-            $table->json("master_keys")->nullable();
             $table->json("foreign_keys")->nullable();
             $table->json("attribute")->nullable();
             $table->timestamps();
@@ -36,45 +35,54 @@ class CreateFormMastersTable extends Migration
                 'model' => 'Rdmarwein\Formbuilder\FormRoleName',
                 'route' => 'formbuilder',
                 'role' => 'ADM',
-                'foreign_keys'=>null
+                'foreign_keys'=>null,
+                'attribute'=>null
             ],
 
-                ['header' => 'Roles',
-                'table_name' => 'form_roles',
-                'exclude'=>'[]',
-                'model' => 'Rdmarwein\Formbuilder\FormRole',
-                'route' => 'formbuilder',
-                'role' => 'ADM',
-                'foreign_keys'=>'{
-                    "App\\\User": [
-                        "user_id",
-                        "id",
-                        "email"
-                    ],
-                    "Rdmarwein\\\Formbuilder\\\FormRoleName": [
-                        "role",
-                        "role",
-                        "detail"
-                    ]
-                }'],
-                ['header' => 'Form Master',
-                'table_name' => 'form_masters',
-                'exclude'=>'[]',
-                'model' => 'Rdmarwein\Formbuilder\FormMaster',
-                'route' => 'formbuilder',
-                'role' => 'ADM',
-                'foreign_keys'=>'{
-                    "App\\\User": [
-                        "user_id",
-                        "id",
-                        "email"
-                    ],
-                    "Rdmarwein\\\Formbuilder\\\FormRoleName": [
-                        "role",
-                        "role",
-                        "detail"
-                    ]
-                }']
+                [
+                    'header' => 'Roles',
+                    'table_name' => 'form_roles',
+                    'exclude'=>'[]',
+                    'model' => 'Rdmarwein\Formbuilder\FormRole',
+                    'route' => 'formbuilder',
+                    'role' => 'ADM',
+                    'foreign_keys'=>'{
+                        "App\\\User": [
+                            "user_id",
+                            "id",
+                            "email"
+                        ],
+                        "Rdmarwein\\\Formbuilder\\\FormRoleName": [
+                            "role",
+                            "role",
+                            "detail"
+                        ]
+                    }',
+                    'attribute'=>null
+                ],
+                [
+                    'header' => 'Form Master',
+                    'table_name' => 'form_masters',
+                    'exclude'=>'[]',
+                    'model' => 'Rdmarwein\Formbuilder\FormMaster',
+                    'route' => 'formbuilder',
+                    'role' => 'ADM',
+                    'foreign_keys'=>'{
+                        "Rdmarwein\\\Formbuilder\\\FormRoleName": [
+                            "role",
+                            "role",
+                            "detail"
+                        ]
+                    }',
+                    'attribute'=>'{ 
+                        "type": 
+                        { 
+                            "attribute":"textarea", 
+                            "foreign_keys":"textarea", 
+                            "master_keys":"textarea" 
+                        } 
+                    }'
+                ]
             )
         );
     }
