@@ -3,6 +3,16 @@
 @section('script')
 <link href="{{ asset('rdmarwein/formbuilder/css/select2.min.css') }}" rel="stylesheet">
 <script src="{{ asset('rdmarwein/formbuilder/js/select2.full.min.js') }}"></script>
+@if(isset($attribute['css']))  
+  @foreach($attribute['css'] as $item)
+    <link href="{{ asset($item) }}" rel="stylesheet">
+  @endforeach
+@endif
+@if(isset($attribute['script']))  
+  @foreach($attribute['script'] as $item)
+    <script src="{{ asset($item['uri']) }}" @if($item['defer']) defer @endif></script>
+  @endforeach
+@endif
 <script>
 	$(function () {
 		$("select").select2();
@@ -43,13 +53,13 @@
                                 </select>
                                 @else
                                     @if(!isset($attribute['type'][$item]))
-                                        <input type="text" class="form-control  form-control-sm" id="{{$item}}" name="{{$item}}" @if(isset($attribute['value'][$item])) value="{{$attribute['value'][$item]}}" @endif @if(isset($attribute['placeholder'][$item])) placeholder="{{$attribute['placeholder'][$item]}}" @endif >
+                                        <input type="text" class="form-control @if(isset($attribute['class'][$item])) {{$attribute['class'][$item]}} @endif form-control-sm" id="{{$item}}" name="{{$item}}" @if(isset($attribute['value'][$item])) value="{{$attribute['value'][$item]}}" @endif @if(isset($attribute['placeholder'][$item])) placeholder="{{$attribute['placeholder'][$item]}}" @endif >
                                     @elseif($attribute['type'][$item]=='textarea')
-                                        <textarea class="form-control " id="{{$item}}" name="{{$item}}" @if(isset($attribute['placeholder'][$item])) placeholder="{{$attribute['placeholder'][$item]}}" @endif>
+                                        <textarea class="form-control @if(isset($attribute['class'][$item])) {{$attribute['class'][$item]}} @endif" id="{{$item}}" name="{{$item}}" @if(isset($attribute['placeholder'][$item])) placeholder="{{$attribute['placeholder'][$item]}}" @endif>
                                           @if(isset($attribute['value'][$item])) {{$attribute['value'][$item]}} @endif
                                         </textarea>
                                     @else
-                                        <input type="{{$attribute['type'][$item]}}" class="form-control  form-control-sm" id="{{$item}}" name="{{$item}}" @if(isset($attribute['value'][$item])) value="{{$attribute['value'][$item]}}" @endif @if(isset($attribute['placeholder'][$item])) placeholder="{{$attribute['placeholder'][$item]}}" @endif>
+                                        <input type="{{$attribute['type'][$item]}}" class="form-control @if(isset($attribute['class'][$item])) {{$attribute['class'][$item]}} @endif form-control-sm" id="{{$item}}" name="{{$item}}" @if(isset($attribute['value'][$item])) value="{{$attribute['value'][$item]}}" @endif @if(isset($attribute['placeholder'][$item])) placeholder="{{$attribute['placeholder'][$item]}}" @endif>
                                     @endif
                                 @endif
                             </div>
