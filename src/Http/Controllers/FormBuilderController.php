@@ -18,7 +18,7 @@ class FormBuilderController extends Controller
     public function index($id,Request $request)
     {
         $formMaster=FormMaster::findOrFail($request->id);
-        $model= $formMaster->model::all();
+        $model= $formMaster->model::orderBy('id','desc')->get();
         $columns = \DB::connection()->getSchemaBuilder()->getColumnListing($formMaster->table_name);
         
         $foreign=json_decode($formMaster->foreign_keys, true);
@@ -70,6 +70,7 @@ class FormBuilderController extends Controller
     public function store(Request $request)
     {
         $formMaster=FormMaster::findOrFail($request->id);
+        $attribute=json_decode($formMaster->attribute, true);
         $values=$formMaster->model;
         $data=new $values;
         $except=array('_token','_method','redirect');
@@ -80,9 +81,9 @@ class FormBuilderController extends Controller
             }
         }
         $data->save();
-        if(isset($request->redirect) && $request->redirect!='')
+        if(isset($attribute['redirect']))
         {
-            return redirect($request->redirect)->with(['message'=> 'Added Successfully','data'=>$data]);
+            return redirect($attribute['redirect'])->with(['message'=> 'Added Successfully','data'=>$data]);
         }
         else
         {

@@ -37,6 +37,9 @@
                         @php
                             $title=ucwords(str_replace('_',' ',$item));
                         @endphp
+                        @if(isset($attribute['type'][$item]) && $attribute['type'][$item]=="hidden")
+                          <input type="{{$attribute['type'][$item]}}"  id="{{$item}}" name="{{$item}}" @if(isset($attribute['value'][$item])) value="{{$attribute['value'][$item]}}" @endif>
+                          @else
                         <div class="col-sm-6 col-xl-4" id="{{$item}}1">
                             <div class="form-group">
                                 <label for="{{$item}}">{{$title}}</label>
@@ -60,6 +63,7 @@
                                         </textarea>
                                     @else
                                         <input type="{{$attribute['type'][$item]}}" class="form-control @if(isset($attribute['class'][$item])) {{$attribute['class'][$item]}} @endif form-control-sm" id="{{$item}}" name="{{$item}}" @if(isset($attribute['value'][$item])) value="{{$attribute['value'][$item]}}" @endif @if(isset($attribute['placeholder'][$item])) placeholder="{{$attribute['placeholder'][$item]}}" @endif>
+                                    @endif
                                     @endif
                                 @endif
                             </div>
