@@ -49,7 +49,13 @@
 						@endif
 					@endforeach
 					<td>
-					  <a class="btn btn-info" href="{{ url('/') }}/formbuilder/edit/{{$formMaster->id}}/{{$item1->id}}">Edit</a>
+					  <form method="POST" action="{{ url('/') }}/formbuilder/{{$formMaster->id}}/{{$item1->id}}">
+							@method('DELETE')
+							@csrf
+							<a class="btn btn-info" href="{{ url('/') }}/formbuilder/edit/{{$formMaster->id}}/{{$item1->id}}">Edit</a>
+							<button class="btn btn-danger">Delete</button>
+						</form>
+					  
 					</td>
 				</tr>
 				@endforeach

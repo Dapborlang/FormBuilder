@@ -57,9 +57,9 @@ class FormBuilderController extends Controller
         }
         $exclude=json_decode($formMaster->exclude, true);
         $attribute=json_decode($formMaster->attribute, true);
-        if($formMaster->view=='formbuilder')
+        if($formMaster->view=='formbuilder' || $formMaster->view=='formajax')
         {
-            return view('formbuilder::formbuilder.create',compact('columns','formMaster','select','exclude','attribute'));
+            return view('formbuilder::'.$formMaster->view.'.create',compact('columns','formMaster','select','exclude','attribute'));
         }
         else{
 
@@ -138,8 +138,16 @@ class FormBuilderController extends Controller
         return redirect()->back()->with(['message'=> 'Added Successfully','data'=>$data]);
     }
 
-    public function destroy($id)
+    public function destroy($id,$cid)
     {
-        //
+        try {
+            $model=FormMaster::findOrFail($id);
+            $values=$model->model;
+            $data=$values::findOrFail($cid);
+            $data->delete();
+            return redirect()->back()->with('message', 'Deleted Successfully');        
+         } catch ( \Exception $e) {
+            return redirect()->back()->with('fail-message', 'Cannot delete or update a parent row: a foreign key constraint fails');      
+         }
     }
 }
