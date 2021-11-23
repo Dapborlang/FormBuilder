@@ -22,29 +22,28 @@ class FormAuth
             return redirect('home');
         } 
 
-        if (\Route::current()->getName() == 'formCreate') {
+        if ($request->route()->named('formCreate')) {
             if(!Auth::user()->role->where('role',$role)->first->create)
             {
-                return $role;
-                // redirect('home')->with(['message'=> 'You Have No Access Right!!! Please contact your administrator']);
+                return redirect('home')->with(['message'=> 'You Have No Access Right!!! Please contact your administrator']);
             }
         }
 
-        if (\Route::current()->getName() == 'formIndex') {
+        if ($request->route()->named('formIndex')) {
             if(!Auth::user()->role->where('role',$role)->first->view)
             {
                 return redirect('home')->with(['message'=> 'You Have No Access Right!!! Please contact your administrator']);
             }
          }
 
-        if (\Route::current()->getName() == 'formUpdate') {
+        if ($request->route()->named('formUpdate') ||  $request->route()->named('formEdit')) {
             if(!Auth::user()->role->where('role',$role)->first->update)
             {
                 return redirect('home')->with(['message'=> 'You Have No Access Right!!! Please contact your administrator']);
             }
          }
 
-        if (\Route::current()->getName() == 'formDelete') {
+        if ($request->route()->named('formDelete')) {
             if(!Auth::user()->role->where('role',$role)->first->delete)
             {
                 return redirect('home')->with(['message'=> 'You Have No Access Right!!! Please contact your administrator']);

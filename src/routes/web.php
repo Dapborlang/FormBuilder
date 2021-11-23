@@ -6,7 +6,7 @@ Route::group(['middleware' => 'web','namespace'=>'Rdmarwein\Formbuilder\Http\Con
     Route::get('formbuilder/create/{id}','FormBuilderController@create')->name('formCreate');
     Route::post('formbuilder/{id}','FormBuilderController@store');
     Route::get('formbuilder/edit/{id}/{cid}','FormBuilderController@edit')->name('formEdit');
-    Route::put('formbuilder/{id}/{cid}','FormBuilderController@update');
-    Route::delete('formbuilder/{id}/{cid}','FormBuilderController@destroy');
+    Route::put('formbuilder/{id}/{cid}','FormBuilderController@update')->name('formUpdate');
+    Route::delete('formbuilder/{id}/{cid}','FormBuilderController@destroy')->name('formDelete');
 });
 

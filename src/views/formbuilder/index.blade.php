@@ -52,15 +52,16 @@
 					  <form method="POST" action="{{ url('/') }}/formbuilder/{{$formMaster->id}}/{{$item1->id}}">
 							@method('DELETE')
 							@csrf
+							@if(Auth::user()->role->first->update)
 							<a class="btn btn-info" href="{{ url('/') }}/formbuilder/edit/{{$formMaster->id}}/{{$item1->id}}">Edit</a>
-							<button class="btn btn-danger">Delete</button>
+					    @endif
+					    @if(Auth::user()->role->first->delete)
+							  <button class="btn btn-danger">Delete</button>
+							@endif
 						</form>
-					  
 					</td>
 				</tr>
 				@endforeach
-
-				
 			</table>	
 			</div>		
 		</div>
