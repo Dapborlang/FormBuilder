@@ -18,7 +18,18 @@ class FormBuilderController extends Controller
     public function index($id,Request $request)
     {
         $formMaster=FormMaster::findOrFail($request->id);
-        $model= $formMaster->model::orderBy('id','desc')->get();
+        $attribute=json_decode($formMaster->attribute, true);
+
+        $model= $formMaster->model::orderBy('id','desc');
+        if(isset($attribute['condition']['index']))
+        {
+            foreach($attribute['condition']['index'] as $key=> $value)
+            {
+                $model=$model->where($key, $value);
+            }
+        }
+        $model=$model->get();
+        
         $columns = \DB::connection()->getSchemaBuilder()->getColumnListing($formMaster->table_name);
         
         $foreign=json_decode($formMaster->foreign_keys, true);
