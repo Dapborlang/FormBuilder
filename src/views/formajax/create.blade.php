@@ -3,6 +3,7 @@
 @section('script')
 <link href="{{ asset('rdmarwein/formbuilder/css/select2.min.css') }}" rel="stylesheet">
 <script src="{{ asset('rdmarwein/formbuilder/js/select2.full.min.js') }}"></script>
+<script src="{{ asset('rdmarwein/formbuilder/js/ajaxsubmit.js') }}"></script>
 @if(isset($attribute['css']))  
   @foreach($attribute['css'] as $item)
     <link href="{{ asset($item) }}" rel="stylesheet">
@@ -50,7 +51,7 @@
 	        {{ session()->get('message') }}
 	    </div>
 	@endif
-    <form method="POST" action="{{ url('/') }}/formbuilder/{{$formMaster->id}}" target="">
+    <form id="form" method="POST" action="{{ url('/') }}/formbuilder/{{$formMaster->id}}" target="">
         {{ csrf_field() }}
         <div class="card bg-secondary text-white">
             <div class="card-header bg-info">{{$formMaster->header}}</div>

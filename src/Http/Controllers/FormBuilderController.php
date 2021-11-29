@@ -165,7 +165,6 @@ class FormBuilderController extends Controller
     public function indexDetail($id,$cid)
     {
         $formMaster=FormMaster::findOrFail($id);
-        return $formMaster;
         $attribute=json_decode($formMaster->attribute, true);
 
         $model= $formMaster->model::orderBy('id','desc');
@@ -176,7 +175,7 @@ class FormBuilderController extends Controller
                 $model=$model->where($key, $value);
             }
         }
-        $model=$model->get();
+        $model=$model->where($_GET['column'],$cid)->get();
         
         $columns = \DB::connection()->getSchemaBuilder()->getColumnListing($formMaster->table_name);
         
@@ -191,12 +190,6 @@ class FormBuilderController extends Controller
         }
         
         $exclude=json_decode($formMaster->exclude, true);
-        if($formMaster->view=='formbuilder')
-        {
-            return view('formbuilder::formbuilder.index',compact('columns','formMaster','select','exclude','model'));
-        }
-        else{
-
-        }
+        return view('formbuilder::formajax.ajax',compact('columns','formMaster','select','exclude','model'));
     }
 }
