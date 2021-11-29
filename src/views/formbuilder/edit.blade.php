@@ -1,8 +1,8 @@
 <!--formbuilder created by RDMarwein -->
 @extends('layouts.app')
 @section('script')
-<link href="{{ asset('rdmarwein/formbuilder/css/select2.min.css') }}" rel="stylesheet">
-<script src="{{ asset('rdmarwein/formbuilder/js/select2.full.min.js') }}"></script>
+<link href="{{ asset('rdmarwein/formgen/css/select2.min.css') }}" rel="stylesheet">
+<script src="{{ asset('rdmarwein/formgen/js/select2.full.min.js') }}"></script>
 <script>
 	$(function () {
 		$("select").select2();
@@ -16,7 +16,7 @@
 	        {{ session()->get('message') }}
 	    </div>
 	@endif
-    <form method="POST" action="{{ url('/') }}/formbuilder/{{$formMaster->id}}/{{$model->id}}" target="">
+    <form method="POST" action="{{ url('/') }}/formgen/{{$formMaster->id}}/{{$model->id}}" target="">
         {{ csrf_field() }}
         {{ method_field('PUT') }}
         <div class="card bg-secondary text-white">

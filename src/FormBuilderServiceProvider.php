@@ -19,7 +19,7 @@ class FormBuilderServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__.'/database/migrations');
         $router = $this->app->make(Router::class);
         $this->publishes([
-            __DIR__.'/assets' => public_path('rdmarwein/formbuilder'),
+            __DIR__.'/assets' => public_path('rdmarwein/formgen'),
         ], 'public');
     }
 

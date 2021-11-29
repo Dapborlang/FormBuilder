@@ -1,9 +1,9 @@
 <!--formbuilder created by RDMarwein -->
 @extends('layouts.app')
 @section('script')
-<link href="{{ asset('rdmarwein/formbuilder/css/select2.min.css') }}" rel="stylesheet">
-<script src="{{ asset('rdmarwein/formbuilder/js/select2.full.min.js') }}"></script>
-<script src="{{ asset('rdmarwein/formbuilder/js/ajaxsubmit.js') }}"></script>
+<link href="{{ asset('rdmarwein/formgen/css/select2.min.css') }}" rel="stylesheet">
+<script src="{{ asset('rdmarwein/formgen/js/select2.full.min.js') }}"></script>
+<script src="{{ asset('rdmarwein/formgen/js/ajaxsubmit.js') }}"></script>
 @if(isset($attribute['css']))  
   @foreach($attribute['css'] as $item)
     <link href="{{ asset($item) }}" rel="stylesheet">
@@ -31,7 +31,7 @@
             var tableId=$("#{{($attribute['master_key'])}}").val();
             if(tableId!="")
             {
-                var urlData="{{ url('/') }}/formbuilder/{{$formMaster->id}}/index/"+tableId+"?column={{($attribute['master_key'])}}";
+                var urlData="{{ url('/') }}/formgen/{{$formMaster->id}}/index/"+tableId+"?column={{($attribute['master_key'])}}";
                 var urlFinalize="{{ url('/') }}/finalize/{{$formMaster->id}}/"+tableId;
                 $("#table-data").attr("url", urlData);
                 $("#finalize").attr("action", urlFinalize);
@@ -51,7 +51,7 @@
 	        {{ session()->get('message') }}
 	    </div>
 	@endif
-    <form id="form" method="POST" action="{{ url('/') }}/formbuilder/{{$formMaster->id}}" target="">
+    <form id="form" method="POST" action="{{ url('/') }}/formgen/{{$formMaster->id}}" target="">
         {{ csrf_field() }}
         <div class="card bg-secondary text-white">
             <div class="card-header bg-info">{{$formMaster->header}}</div>

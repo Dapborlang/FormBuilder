@@ -2,13 +2,13 @@
 
 Route::group(['middleware' => 'web','namespace'=>'Rdmarwein\Formbuilder\Http\Controllers'], function()
 {
-    Route::get('formbuilder/{id}','FormBuilderController@index')->name('formIndex');
-    Route::get('formbuilder/create/{id}','FormBuilderController@create')->name('formCreate');
-    Route::post('formbuilder/{id}','FormBuilderController@store');
-    Route::get('formbuilder/edit/{id}/{cid}','FormBuilderController@edit')->name('formEdit');
-    Route::put('formbuilder/{id}/{cid}','FormBuilderController@update')->name('formUpdate');
-    Route::delete('formbuilder/{id}/{cid}','FormBuilderController@destroy')->name('formDelete');
+    Route::get('formgen/{id}','FormBuilderController@index')->name('formIndex');
+    Route::get('formgen/create/{id}','FormBuilderController@create')->name('formCreate');
+    Route::post('formgen/{id}','FormBuilderController@store');
+    Route::get('formgen/edit/{id}/{cid}','FormBuilderController@edit')->name('formEdit');
+    Route::put('formgen/{id}/{cid}','FormBuilderController@update')->name('formUpdate');
+    Route::delete('formgen/{id}/{cid}','FormBuilderController@destroy')->name('formDelete');
 
-    Route::get('formbuilder/{id}/index/{cid}','FormBuilderController@indexDetail');
+    Route::get('formgen/{id}/index/{cid}','FormBuilderController@indexDetail');
 });
 
