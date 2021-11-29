@@ -5,6 +5,7 @@ namespace Rdmarwein\Formbuilder\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Rdmarwein\Formbuilder\FormMaster;
+use Auth;
 
 class FormBuilderController extends Controller
 {
@@ -28,6 +29,12 @@ class FormBuilderController extends Controller
                 $model=$model->where($key, $value);
             }
         }
+
+        if(isset($attribute['visibility']) && $attribute['visibility'])
+        {
+            $model=$model->where('user_id', Auth::user()->id);
+        }
+
         $model=$model->get();
         
         $columns = \DB::connection()->getSchemaBuilder()->getColumnListing($formMaster->table_name);
