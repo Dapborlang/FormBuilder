@@ -16,11 +16,30 @@
 <script>
 	$(function () {
 		$("select").select2();
-		alert("{{($attribute['master_key'])}}");
-		$("{{($attribute['master_key'])}}").change(function()
-	{
-		alert("hola");
-	});
+		$("#{{($attribute['master_key'])}}").change(function()
+        {
+            if($(this).val()=="")
+            {
+                $("#finalizeBtn").prop( "disabled", true );
+            }
+            setTable();
+        });
+
+        function setTable()
+        {
+            var tableId=$("#{{($attribute['master_key'])}}").val();
+            if(tableId!="")
+            {
+                var urlData="{{ url('/') }}/formbuilder/{{$formMaster->id}}/index/"+tableId+"?column={{($attribute['master_key'])}}";
+                var urlFinalize="{{ url('/') }}/finalize/{{$formMaster->id}}/"+tableId;
+                $("#table-data").attr("url", urlData);
+                $("#finalize").attr("action", urlFinalize);
+                $.get(urlData, function(data){
+                    $("#table-data").html(data);
+                    $("#finalizeBtn").prop( "disabled", false );
+                });
+            }		
+        }
 	});
 </script>
 @endsection
@@ -84,5 +103,21 @@
             </div>
         </div>
     </form>
+
+    <br>
+	<div class="card">
+		<div class="card-body" style="width:100%; height: 40vh; overflow:auto;">	
+			<div id="table-data"></div>
+		</div>
+		<div class="card-footer">
+		<form id="finalize" action="" method="POST">
+			{{ csrf_field() }}
+			<!-- Table to finalize -->
+			<input type="hidden" name="field" value="Sanction Order">
+			<input type="hidden" name="redirect" id="redirect" value="">
+			<button id="finalizeBtn" type="submit" class="btn btn-info" disabled>Finalize</button>
+		</form>
+		</div>
+	</div>
 </div>
 @endsection

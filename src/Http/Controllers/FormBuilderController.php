@@ -161,4 +161,42 @@ class FormBuilderController extends Controller
             return redirect()->back()->with('fail-message', 'Cannot delete or update a parent row: a foreign key constraint fails');      
          }
     }
+
+    public function indexDetail($id,$cid)
+    {
+        $formMaster=FormMaster::findOrFail($id);
+        return $formMaster;
+        $attribute=json_decode($formMaster->attribute, true);
+
+        $model= $formMaster->model::orderBy('id','desc');
+        if(isset($attribute['condition']['index']))
+        {
+            foreach($attribute['condition']['index'] as $key=> $value)
+            {
+                $model=$model->where($key, $value);
+            }
+        }
+        $model=$model->get();
+        
+        $columns = \DB::connection()->getSchemaBuilder()->getColumnListing($formMaster->table_name);
+        
+        $foreign=json_decode($formMaster->foreign_keys, true);
+        
+        $select=array();
+        if(sizeof((array)$foreign)>0)
+        {
+            foreach (array_keys($foreign) as $key) {
+                $select[$foreign[$key][0]]=array($key,$foreign[$key][2]);
+            }
+        }
+        
+        $exclude=json_decode($formMaster->exclude, true);
+        if($formMaster->view=='formbuilder')
+        {
+            return view('formbuilder::formbuilder.index',compact('columns','formMaster','select','exclude','model'));
+        }
+        else{
+
+        }
+    }
 }
