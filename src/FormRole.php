@@ -15,10 +15,9 @@ class FormRole extends Model
     {
        return $this->belongsTo('App\User');
     }
-    
-    
-}
-public function link()
+    public function link()
     {
        return $this->hasMany('Rdmarwein\Formbuilder\FormMaster','role','role')->orderBy('id');
     }
+    
+}
