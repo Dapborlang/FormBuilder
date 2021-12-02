@@ -13,7 +13,7 @@ class FormBuilderController extends Controller
     {
         $role=FormMaster::findOrFail($request->id);
         $this->middleware('auth');
-        $this->middleware('formAuth:'.$role->role);
+        $this->middleware('credential:'.$role->role);
     }
 
     public function index($id,Request $request)
