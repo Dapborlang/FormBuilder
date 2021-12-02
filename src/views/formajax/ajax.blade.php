@@ -37,10 +37,10 @@
 					  <form method="POST" action="{{ url('/') }}/formgen/{{$formMaster->id}}/{{$item1->id}}">
 							@method('DELETE')
 							@csrf
-							@if(Auth::user()->role->first->update)
+							@if(Auth::user()->formRole->first->update)
 							<a class="btn btn-info" href="{{ url('/') }}/formgen/edit/{{$formMaster->id}}/{{$item1->id}}">Edit</a>
 					    @endif
-					    @if(Auth::user()->role->first->delete)
+					    @if(Auth::user()->formRole->first->delete)
 							  <button class="btn btn-danger">Delete</button>
 							@endif
 						</form>
