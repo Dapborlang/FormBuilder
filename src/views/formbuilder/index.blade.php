@@ -49,7 +49,7 @@
 						@endif
 					@endforeach
 					<td>
-					  <form method="POST" action="{{ url('/') }}/formgen/{{$formMaster->id}}/{{$item1->id}}">
+					  <form method="POST" action="{{ url('/') }}/{{$formMaster->route}}/{{$formMaster->id}}/{{$item1->id}}">
 							@method('DELETE')
 							@csrf
 							@if(Auth::user()->formRole->first->update)

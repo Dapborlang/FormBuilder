@@ -26,7 +26,7 @@
 	        {{ session()->get('message') }}
 	    </div>
 	@endif
-    <form method="POST" action="{{ url('/') }}/formgen/{{$formMaster->id}}" target="">
+    <form method="POST" action="{{ url('/') }}/{{$formMaster->route}}/{{$formMaster->id}}" target="">
         {{ csrf_field() }}
         <div class="card bg-secondary text-white">
             <div class="card-header bg-info">{{$formMaster->header}}</div>
