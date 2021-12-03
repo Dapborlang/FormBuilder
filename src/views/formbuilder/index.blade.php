@@ -40,9 +40,28 @@
 								@php 
 									$val=$select[$item][0];
 									$val=array_values(array_slice((explode('\\',$val)), -1))[0];;
-									$det=$select[$item][1];
+									$detail=explode("()", $select[$item][1]);
+									
+									if(sizeof($detail)>1)
+									{
+										$data=$detail[0];
+										$det=$item1-> $val-> $data();
+									}
+									else
+									{
+										$data=$detail[0];
+										if(isset($item1-> $val-> $data))
+										{
+											$det=$item1-> $val-> $data;
+										}
+										else
+										{
+											$det="please map the relationship";
+										}
+									}
+									
 								@endphp		
-								<td>@if(isset($item1-> $val-> $det)){{ $item1-> $val-> $det }}@endif</td>
+								<td>{{$det}}</td>
 							@else
 							  <td>{{$item1->$item}}</td>
 							@endif

@@ -35,11 +35,12 @@
                                 <select class="form-control" id="{{$item}}" name="{{$item}}">
                                     <option value="{{$model-> $item}}">({{$model-> $item}}) NO CHANGES</option>
                                     @foreach($select[$item][0] as $data)
-                                    @php
-                                        $val=$select[$item][1];
-                                        $det=$select[$item][2];
-                                    @endphp
-                                        <option value="{{$data->$val}}">{{$data->$det}}</option>
+                                        @php
+                                            $val=$select[$item][1];
+                                            $det = explode("()", $select[$item][2]);
+                                            $detail=$det[0];
+                                        @endphp
+                                        <option value="{{$data->$val}}">@if(sizeof($det)>1){{$data->$detail()}}@else{{$data->$detail}}@endif</option>
                                     @endforeach
                                 </select>
                                 @else
