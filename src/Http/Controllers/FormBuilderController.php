@@ -69,14 +69,15 @@ class FormBuilderController extends Controller
         if(sizeof((array)$foreign)>0)
         {
             foreach (array_keys($foreign) as $key) {
-                $data=$key::all();
+                $data=$key::query();
                 if(isset($foreign[$key][3]))
                 {
                   foreach (array_keys($foreign[$key][3][0]) as $key1) {
-                    return $key1.$foreign[$key][3][0][$key1];
+                    $data=$data->where($key1,$foreign[$key][3][0][$key1]);
                   }
                 
                 }
+                $data=$data->get();
                 $select[$foreign[$key][0]]=array($data,$foreign[$key][1],$foreign[$key][2]);
             }
         }
