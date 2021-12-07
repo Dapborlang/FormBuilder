@@ -71,6 +71,7 @@
 					  <form method="POST" action="{{ url('/') }}/{{$formMaster->route}}/{{$formMaster->id}}/{{$item1->id}}">
 							@method('DELETE')
 							@csrf
+							{!!$hola->holo($item1->id)!!}
 							@if(Auth::user()->formRole->first->update)
 							<a class="btn btn-info" href="{{ url('/') }}/formgen/edit/{{$formMaster->id}}/{{$item1->id}}">Edit</a>
 					    @endif

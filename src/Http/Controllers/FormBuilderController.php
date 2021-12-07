@@ -50,9 +50,10 @@ class FormBuilderController extends Controller
         }
         
         $exclude=json_decode($formMaster->exclude, true);
+        $hola=new \App\Test;
         if($formMaster->view=='formbuilder' || $formMaster->view=='formajax')
         {
-            return view('formbuilder::formbuilder.index',compact('columns','formMaster','select','exclude','model'));
+            return view('formbuilder::formbuilder.index',compact('columns','formMaster','select','exclude','model','hola'));
         }
         else{
 
