@@ -50,10 +50,16 @@ class FormBuilderController extends Controller
         }
         
         $exclude=json_decode($formMaster->exclude, true);
-        $hola=new \App\Test;
+        
+        $customURI=[];
+        if(isset($attribute['customURI']))
+        {
+            $customURI=new $attribute['customURI'];
+        }
+        
         if($formMaster->view=='formbuilder' || $formMaster->view=='formajax')
         {
-            return view('formbuilder::formbuilder.index',compact('columns','formMaster','select','exclude','model','hola'));
+            return view('formbuilder::formbuilder.index',compact('columns','formMaster','select','exclude','model','attribute','customURI'));
         }
         else{
 

@@ -71,7 +71,11 @@
 					  <form method="POST" action="{{ url('/') }}/{{$formMaster->route}}/{{$formMaster->id}}/{{$item1->id}}">
 							@method('DELETE')
 							@csrf
-							{!!$hola->holo($item1->id)!!}
+							@if(isset($attribute['customURI']))
+								@foreach($customURI->uri($item1->id) as $uri)
+									<a class="btn btn-primary" href="{{ url('/') }}/{{$uri['uri']}}">{{$uri['text']}}</a>
+								@endforeach
+							@endif
 							@if(Auth::user()->formRole->first->update)
 							<a class="btn btn-info" href="{{ url('/') }}/formgen/edit/{{$formMaster->id}}/{{$item1->id}}">Edit</a>
 					    @endif
