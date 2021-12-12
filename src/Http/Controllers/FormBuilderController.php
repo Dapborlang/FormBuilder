@@ -56,14 +56,8 @@ class FormBuilderController extends Controller
         {
             $customURI=new $attribute['customURI'];
         }
-        
-        if($formMaster->view=='formbuilder' || $formMaster->view=='formajax')
-        {
-            return view('formbuilder::formbuilder.index',compact('columns','formMaster','select','exclude','model','attribute','customURI'));
-        }
-        else{
-
-        }
+       
+        return view($formMaster->view.'.index',compact('columns','formMaster','select','exclude','model','attribute','customURI'));       
     }
 
     public function create($id,Request $request)
@@ -90,13 +84,8 @@ class FormBuilderController extends Controller
         }
         $exclude=json_decode($formMaster->exclude, true);
         $attribute=json_decode($formMaster->attribute, true);
-        if($formMaster->view=='formbuilder' || $formMaster->view=='formajax')
-        {
-            return view('formbuilder::'.$formMaster->view.'.create',compact('columns','formMaster','select','exclude','attribute'));
-        }
-        else{
-
-        }
+            return view($formMaster->view.'.create',compact('columns','formMaster','select','exclude','attribute'));
+        
     }
 
 
@@ -146,13 +135,8 @@ class FormBuilderController extends Controller
         }
         $exclude=json_decode($formMaster->exclude, true);
         $attribute=json_decode($formMaster->attribute, true);
-        if($formMaster->view=='formbuilder' || $formMaster->view=='formajax')
-        {
-            return view('formbuilder::formbuilder.edit',compact('columns','formMaster','select','exclude','attribute','model'));
-        }
-        else{
-
-        }
+        return view($formMaster->view.'.edit',compact('columns','formMaster','select','exclude','attribute','model'));
+        
     }
 
     public function update(Request $request, $id,$cid)
