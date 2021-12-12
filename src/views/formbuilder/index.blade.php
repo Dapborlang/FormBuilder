@@ -73,7 +73,7 @@
 							@csrf
 							@if(isset($attribute['customURI']))
 								@foreach($customURI->uri($item1->id) as $uri)
-									<a class="btn btn-primary" href="{{ url('/') }}/{{$uri['uri']}}">{{$uri['text']}}</a>
+									<a class="btn {{$uri['class']}}" href="{{ url('/') }}/{{$uri['uri']}}">{{$uri['text']}}</a>
 								@endforeach
 							@endif
 							@if(Auth::user()->formRole->first->update)
