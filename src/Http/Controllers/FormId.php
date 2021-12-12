@@ -1,3 +1,4 @@
+<?php
 namespace Rdmarwein\Formbuilder\Http\Controllers;
 
 use Rdmarwein\Formbuilder\FormMaster;
