@@ -75,12 +75,13 @@
 								@foreach($customURI->uri($item1->id) as $uri)
 									<a class="btn {{$uri['class']}}" href="{{ url('/') }}/{{$uri['uri']}}">{{$uri['text']}}</a>
 								@endforeach
-							@endif
-							@if(Auth::user()->formRole->first->update)
-							<a class="btn btn-info" href="{{ url('/') }}/formgen/edit/{{$formMaster->id}}/{{$item1->id}}">Edit</a>
-					    @endif
-					    @if(Auth::user()->formRole->first->delete)
-							  <button class="btn btn-danger">Delete</button>
+							@else
+								@if(Auth::user()->formRole->first->update)
+								<a class="btn btn-info" href="{{ url('/') }}/formgen/edit/{{$formMaster->id}}/{{$item1->id}}">Edit</a>
+					    		@endif
+					    		@if(Auth::user()->formRole->first->delete)
+							  	<button class="btn btn-danger">Delete</button>
+								@endif
 							@endif
 						</form>
 					</td>
