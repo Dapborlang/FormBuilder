@@ -35,7 +35,7 @@ class CreateFormMastersTable extends Migration
                 'exclude'=>'[]',
                 'model' => 'Rdmarwein\Formbuilder\FormRoleName',
                 'view' => 'formbuilder',
-                'route' => 'formbuilder',
+                'route' => 'formgen',
                 'role' => 'ADM',
                 'foreign_keys'=>null,
                 'attribute'=>null
@@ -47,7 +47,7 @@ class CreateFormMastersTable extends Migration
                     'exclude'=>'[]',
                     'model' => 'Rdmarwein\Formbuilder\FormRole',
                     'view' => 'formbuilder',
-                    'route' => 'formbuilder',
+                    'route' => 'formgen',
                     'role' => 'ADM',
                     'foreign_keys'=>'{
                         "App\\\User": [
@@ -69,7 +69,7 @@ class CreateFormMastersTable extends Migration
                     'exclude'=>'[]',
                     'model' => 'Rdmarwein\Formbuilder\FormMaster',
                     'view' => 'formbuilder',
-                    'route' => 'formbuilder',
+                    'route' => 'formgen',
                     'role' => 'ADM',
                     'foreign_keys'=>'{
                         "Rdmarwein\\\Formbuilder\\\FormRoleName": [
