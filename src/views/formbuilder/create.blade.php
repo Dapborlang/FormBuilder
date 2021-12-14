@@ -28,6 +28,11 @@
 	@endif
     <form method="POST" action="{{ url('/') }}/{{$formMaster->route}}/{{$formMaster->id}}" target="">
         {{ csrf_field() }}
+        @if(isset($_GET))
+            @foreach($_GET as $key=>$item)
+                <input type="hidden" name="{{$key}}" value="{{$item}}">
+            @endforeach
+        @endif
         <div class="card bg-secondary text-white">
             <div class="card-header bg-info">{{$formMaster->header}}</div>
             <div class="card-body">
