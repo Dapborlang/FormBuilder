@@ -16,7 +16,7 @@ class FormBuilderController extends Controller
         $this->middleware('credential:'.$role->role);
     }
 
-    public function index($id,Request $request)
+    public function index($id,$cid=null,Request $request)
     {
         $formMaster=FormMaster::findOrFail($request->id);
         $attribute=json_decode($formMaster->attribute, true);
@@ -28,6 +28,10 @@ class FormBuilderController extends Controller
             {
                 $model=$model->where($key, $value);
             }
+        }
+        if(isset($cid))
+        {
+            $model=$model->where($attribute['master_key'], $cid);
         }
 
         if(isset($attribute['visibility']) && $attribute['visibility'])
@@ -56,7 +60,10 @@ class FormBuilderController extends Controller
         {
             $customURI=new $attribute['customURI'];
         }
-       
+       if($cid!=null && $formMaster->view=="formbuilder::formajax")
+       {
+        return view('formbuilder::formbuilder.index',compact('columns','formMaster','select','exclude','model','attribute','customURI'));
+       }
         return view($formMaster->view.'.index',compact('columns','formMaster','select','exclude','model','attribute','customURI'));       
     }
 

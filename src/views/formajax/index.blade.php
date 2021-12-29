@@ -21,25 +21,22 @@
 			<table class="table table-hover">
 				<tr>
 					<th>Sl No.</th>
-					@foreach($columns as $item)
-						@if(!in_array($item,$exclude))
 						@php
-							$title=ucwords(str_replace('_',' ',$item));
+						  $master=$attribute['master_key'];
+							$title=ucwords(str_replace('_',' ',$master));
 						@endphp
 							<th>{{$title}}</th>
-						@endif
-					@endforeach
 					<th>Option</th>
 				</tr>
-				@foreach($model as $item1)
+				@foreach($model->unique($master) as $item1)
 				<tr>
 					<td>{{$loop->iteration}}</td>
 					@foreach($columns as $item)
-						@if(!in_array($item,$exclude))	
+						@if($item==$master)	
 							@if(array_key_exists($item, $select))
 								@php 
 									$val=$select[$item][0];
-									$val=array_values(array_slice((explode('\\',$val)), -1))[0];;
+									$val=array_values(array_slice((explode('\\',$val)), -1))[0];
 									$det=$select[$item][1];
 								@endphp		
 								<td>@if(isset($item1-> $val-> $det)){{ $item1-> $val-> $det }}@endif</td>
@@ -49,16 +46,7 @@
 						@endif
 					@endforeach
 					<td>
-					  <form method="POST" action="{{ url('/') }}/formgen/{{$formMaster->id}}/{{$item1->id}}">
-							@method('DELETE')
-							@csrf
-							@if(Auth::user()->formRole->first->update)
-							<a class="btn btn-info" href="{{ url('/') }}/formgen/edit/{{$formMaster->id}}/{{$item1->id}}">Edit</a>
-					    @endif
-					    @if(Auth::user()->formRole->first->delete)
-							  <button class="btn btn-danger">Delete</button>
-							@endif
-						</form>
+							<a class="btn btn-info" href="{{ url('/') }}/formgen/{{$formMaster->id}}/{{$item1-> $master}}">View</a>
 					</td>
 				</tr>
 				@endforeach
