@@ -46,7 +46,7 @@
 						@endif
 					@endforeach
 					<td>
-							<a class="btn btn-info" href="{{ url('/') }}/formgen/{{$formMaster->id}}/{{$item1-> $master}}">View</a>
+							<a class="btn btn-info" href="{{ url('/') }}/formgendet/{{$formMaster->id}}/{{$item1-> $master}}">View</a>
 					</td>
 				</tr>
 				@endforeach
