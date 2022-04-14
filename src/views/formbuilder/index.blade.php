@@ -87,8 +87,9 @@
 					</td>
 				</tr>
 				@endforeach
-			</table>	
+			</table>			
 			</div>		
+			{{ $model->links() }}
 		</div>
 	</div>
 </div>

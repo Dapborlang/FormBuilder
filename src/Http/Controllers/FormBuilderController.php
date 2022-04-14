@@ -39,7 +39,7 @@ class FormBuilderController extends Controller
             $model=$model->where('user_id', Auth::user()->id);
         }
 
-        $model=$model->get();
+        $model=$model->paginate(30);
         
         $columns = \DB::connection()->getSchemaBuilder()->getColumnListing($formMaster->table_name);
         
