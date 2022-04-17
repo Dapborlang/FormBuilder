@@ -67,7 +67,7 @@ class FormBuilderController extends Controller
                 });                
             }
         }
-        $model=$model->paginate(2);
+        $model=$model->paginate(30);
         
         $exclude=json_decode($formMaster->exclude, true);
         
