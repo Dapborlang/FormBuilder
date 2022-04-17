@@ -38,8 +38,6 @@ class FormBuilderController extends Controller
         {
             $model=$model->where('user_id', Auth::user()->id);
         }
-
-        $model=$model->paginate(30);
         
         $columns = \DB::connection()->getSchemaBuilder()->getColumnListing($formMaster->table_name);
         
@@ -52,6 +50,24 @@ class FormBuilderController extends Controller
                 $select[$foreign[$key][0]]=array($key,$foreign[$key][2]);
             }
         }
+
+        if(isset($_GET['keyword']) && $_GET['keyword']!='')
+        {
+            $dataString=$_GET['keyword'];
+            foreach($columns as $data)
+            {
+                $model=$model->orWhere($data,'ilike','%'.$dataString.'%');
+            }
+            foreach (array_keys($foreign) as $key) {
+                $param=$foreign[$key][2];
+                $fModel= explode('\\',$key);
+                $fModel=end($fModel);
+                $model=$model->orWhereHas($fModel, function ($query) use($param,$dataString) {
+                    $query->where($param,'ilike','%'.$dataString.'%');
+                });                
+            }
+        }
+        $model=$model->paginate(2);
         
         $exclude=json_decode($formMaster->exclude, true);
         

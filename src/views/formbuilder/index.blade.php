@@ -17,6 +17,14 @@
 	<div class="card">
 		<div class="card-header bg-info">{{$formMaster->header}}</div>
 		<div class="card-body">	
+			<form method="GET" action="{{ url('/') }}/{{$formMaster->route}}/{{$formMaster->id}}">
+				<div class="col-sm-5">
+					<table class="table table-striped">
+						<td><input type="text" class="form-control form-control-sm" name="keyword" placeholder="Enter Keyword To Search"></td>
+						<td><button type="submit" class="btn btn-primary btn-sm">Search</button></td>
+					</table>
+				</div>
+			</form>
 			<div style="width:100%; height: 450px; overflow:auto;">
 			<table class="table table-hover">
 				<tr>
