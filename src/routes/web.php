@@ -9,7 +9,7 @@ Route::group(['middleware' => 'web','namespace'=>'Rdmarwein\Formbuilder\Http\Con
     Route::get('formgen/edit/{id}/{cid}','FormBuilderController@edit')->name('formEdit');
     Route::put('formgen/{id}/{cid}','FormBuilderController@update')->name('formUpdate');
     Route::delete('formgen/{id}/{cid}','FormBuilderController@destroy')->name('formDelete');
-
     Route::get('formgen/{id}/index/{cid}','FormBuilderController@indexDetail');
+    Route::get('getformfield/{id}','FormBuilderController@getFormField');
 });
 

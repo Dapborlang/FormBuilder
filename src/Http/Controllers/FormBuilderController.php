@@ -241,4 +241,19 @@ class FormBuilderController extends Controller
             return redirect()->back()->with('message', 'Updated Successfully');
         }
     }
+    public function getFormField($id)
+    {
+        $formMaster=FormMaster::findOrFail($id);
+        $field=array();
+        $columns = \DB::connection()->getSchemaBuilder()->getColumnListing($formMaster->table_name);
+        foreach($columns as $item)
+        {
+            if($item!='created_at' && $item!='updated_at')
+		    {
+                $field[$item]=$item;
+            }			  
+		 }
+			
+        return $field;
+    }
 }
