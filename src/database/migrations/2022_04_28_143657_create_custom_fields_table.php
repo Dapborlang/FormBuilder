@@ -15,7 +15,7 @@ class CreateCustomFieldsTable extends Migration
     {
         Schema::create('custom_fields', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('form_master_id');
+            $table->unsignedBigInteger('form_master_id')->unique();
             $table->json("field");
             $table->timestamps();
         });

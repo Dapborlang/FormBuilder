@@ -29,10 +29,17 @@
 			<table class="table table-hover">
 				<tr>
 					<th>Sl No.</th>
-					@foreach($columns as $item)
+					@foreach($columns as $key=>$item)
 						@if(!in_array($item,$exclude))
 						@php
-							$title=ucwords(str_replace('_',' ',$item));
+						if(array_key_exists('customF',$columns))
+                            {
+                                $title=$key;
+                            }
+                            else
+                            {
+                                $title=ucwords(str_replace('_',' ',$item));
+                            }
 						@endphp
 							<th>{{$title}}</th>
 						@endif

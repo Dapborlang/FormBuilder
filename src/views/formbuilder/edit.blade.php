@@ -23,10 +23,17 @@
             <div class="card-header bg-info">{{$formMaster->header}}</div>
             <div class="card-body">
                 <div class="row">
-                @foreach($columns as $item)
+                @foreach($columns as $key=>$item)
                     @if(!in_array($item,$exclude) && $item!='id' && $item!='created_at' && $item!='updated_at')
                         @php
-                            $title=ucwords(str_replace('_',' ',$item));
+                        if(array_key_exists('customF',$columns))
+                            {
+                                $title=$key;
+                            }
+                            else
+                            {
+                                $title=ucwords(str_replace('_',' ',$item));
+                            }
                         @endphp
                         <div class="col-sm-6 col-xl-4" id="{{$item}}1">
                             <div class="form-group">

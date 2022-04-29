@@ -39,7 +39,14 @@ class FormBuilderController extends Controller
             $model=$model->where('user_id', Auth::user()->id);
         }
         
-        $columns = \DB::connection()->getSchemaBuilder()->getColumnListing($formMaster->table_name);
+        if(isset($formMaster->CustomField->field)){
+            $columns =json_decode($formMaster->CustomField->field, true);
+            $columns['customF']=true;
+        }
+        else
+        {
+            $columns = \DB::connection()->getSchemaBuilder()->getColumnListing($formMaster->table_name);
+        }
         
         $foreign=json_decode($formMaster->foreign_keys, true);
         
@@ -86,8 +93,14 @@ class FormBuilderController extends Controller
     public function create($id,Request $request)
     {
         $formMaster=FormMaster::findOrFail($request->id);
-        $columns = \DB::connection()->getSchemaBuilder()->getColumnListing($formMaster->table_name);
-
+        if(isset($formMaster->CustomField->field)){
+            $columns =json_decode($formMaster->CustomField->field, true);
+            $columns['customF']=true;
+        }
+        else
+        {
+            $columns = \DB::connection()->getSchemaBuilder()->getColumnListing($formMaster->table_name);
+        }
         $foreign=json_decode($formMaster->foreign_keys, true);
         $select=array();
         if(sizeof((array)$foreign)>0)
@@ -99,7 +112,6 @@ class FormBuilderController extends Controller
                   foreach (array_keys($foreign[$key][3][0]) as $key1) {
                     $data=$data->where($key1,$foreign[$key][3][0][$key1]);
                   }
-                
                 }
                 $data=$data->get();
                 $select[$foreign[$key][0]]=array($data,$foreign[$key][1],$foreign[$key][2]);
@@ -145,7 +157,14 @@ class FormBuilderController extends Controller
     {
         $formMaster=FormMaster::findOrFail($id);
         $model= $formMaster->model::findOrFail($cid);
-        $columns = \DB::connection()->getSchemaBuilder()->getColumnListing($formMaster->table_name);
+        if(isset($formMaster->CustomField->field)){
+            $columns =json_decode($formMaster->CustomField->field, true);
+            $columns['customF']=true;
+        }
+        else
+        {
+            $columns = \DB::connection()->getSchemaBuilder()->getColumnListing($formMaster->table_name);
+        }
 
         $foreign=json_decode($formMaster->foreign_keys, true);
         $select=array();

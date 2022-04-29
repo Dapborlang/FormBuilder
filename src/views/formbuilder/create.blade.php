@@ -37,10 +37,17 @@
             <div class="card-header bg-info">{{$formMaster->header}}</div>
             <div class="card-body">
                 <div class="row">
-                @foreach($columns as $item)
+                @foreach($columns as $key=>$item)
                     @if(!in_array($item,$exclude) && $item!='created_at' && $item!='updated_at')
                         @php
-                            $title=ucwords(str_replace('_',' ',$item));
+                            if(array_key_exists('customF',$columns))
+                            {
+                                $title=$key;
+                            }
+                            else
+                            {
+                                $title=ucwords(str_replace('_',' ',$item));
+                            }                            
                         @endphp
                         @if(isset($attribute['type'][$item]) && $attribute['type'][$item]=="hidden")
                           <input type="{{$attribute['type'][$item]}}"  id="{{$item}}" name="{{$item}}" @if(isset($attribute['value'][$item])) value="{{$attribute['value'][$item]}}" @endif>

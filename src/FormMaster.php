@@ -10,4 +10,9 @@ class FormMaster extends Model
     {
        return $this->belongsTo('Rdmarwein\Formbuilder\FormRoleName','role','role');
     }
+
+    public function CustomField()
+    {
+       return $this->hasOne('Rdmarwein\Formbuilder\CustomField');
+    }
 }
