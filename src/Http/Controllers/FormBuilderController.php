@@ -110,7 +110,7 @@ class FormBuilderController extends Controller
                 if(isset($foreign[$key][3]))
                 {
                   foreach (array_keys($foreign[$key][3][0]) as $key1) {
-                    $data=$data->where($key1,$foreign[$key][3][0][$key1]);
+                    $data=$data->whereIn($key1,$foreign[$key][3][0][$key1]);
                   }
                 }
                 $data=$data->get();
