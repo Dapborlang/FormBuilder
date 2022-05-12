@@ -51,7 +51,7 @@
 	        {{ session()->get('message') }}
 	    </div>
 	@endif
-    <form id="form" method="POST" action="{{ url('/') }}/formgen/{{$formMaster->id}}" target="">
+    <form id="form" method="POST" action="{{ url('/') }}/{{$formMaster->route}}/{{$formMaster->id}}" target="">
         {{ csrf_field() }}
         <div class="card bg-secondary text-white">
             <div class="card-header bg-info">{{$formMaster->header}}</div>
@@ -69,7 +69,17 @@
                             <div class="form-group">
                                 <label for="{{$item}}">{{$title}}</label>
                                 @if(array_key_exists($item, $select))
-                                <select class="form-control" id="{{$item}}" name="{{$item}}">
+                                <select class="form-control" id="{{$item}}" 
+                                @if(isset($attribute['attribute'][$item]))
+                                    @if($attribute['attribute'][$item]=="multiple") 
+                                        name="{{$item}}[]" 
+                                    @else 
+                                        name="{{$item}}" 
+                                    @endif 
+                                    {{$attribute['attribute'][$item]}} 
+                                @else 
+                                    name="{{$item}}" 
+                                @endif>
                                     <option value="">--Select {{$title}}--</option>
                                     @foreach($select[$item][0] as $data)
                                         @php
