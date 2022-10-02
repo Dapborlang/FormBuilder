@@ -140,7 +140,7 @@ class FormBuilderController extends Controller
         $data->save();
         if(isset($attribute['redirect']))
         {
-            return redirect($attribute['redirect'])->with(['message'=> 'Added Successfully','data'=>$data]);
+            return redirect($attribute['redirect'].'/'.$data->id)->with(['message'=> 'Added Successfully','data'=>$data]);
         }
         else
         {

@@ -14,10 +14,8 @@
     <script src="{{ asset($item['uri']) }}" @if($item['defer']) defer @endif></script>
   @endforeach
 @endif
-
 <script>
 	$(function () {
-        setTable();
 		$("select").select2();
 		$("#{{($attribute['master_key'])}}").change(function()
         {
@@ -55,15 +53,6 @@
 	@endif
     <form id="form" method="POST" action="{{ url('/') }}/{{$formMaster->route}}/{{$formMaster->id}}" target="">
         {{ csrf_field() }}
-        @php
-            if(isset($_GET['master_key']))
-            {
-                array_push($exclude,$attribute['master_key']);
-        @endphp
-                <input type="hidden" name="{{$attribute['master_key']}}" value="{{$_GET['master_key']}}" id="{{$attribute['master_key']}}">
-        @php        
-            }
-        @endphp	
         <div class="card bg-secondary text-white">
             <div class="card-header bg-info">{{$formMaster->header}}</div>
             <div class="card-body">
