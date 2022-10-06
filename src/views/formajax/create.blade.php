@@ -34,7 +34,11 @@
             if(tableId!="")
             {
                 var urlData="{{ url('/') }}/formgen/{{$formMaster->id}}/index/"+tableId+"?column={{($attribute['master_key'])}}";
-                var urlFinalize="{{ url('/') }}/finalize/{{$formMaster->id}}/"+tableId;
+                @if(isset($attribute['finalizeRoute']))
+                    var urlFinalize="{{ url('/') }}/{{$attribute['finalizeRoute']}}/{{$formMaster->id}}/"+tableId;
+                @else
+                    var urlFinalize="{{ url('/') }}/{{$formMaster->id}}/finalize/"+tableId;
+                @endif
                 $("#table-data").attr("url", urlData);
                 $("#finalize").attr("action", urlFinalize);
                 $.get(urlData, function(data){
@@ -136,7 +140,6 @@
 		<form id="finalize" action="" method="POST">
 			{{ csrf_field() }}
 			<!-- Table to finalize -->
-			<input type="hidden" name="field" value="Sanction Order">
 			<input type="hidden" name="redirect" id="redirect" value="">
 			<button id="finalizeBtn" type="submit" class="btn btn-info" disabled>Finalize</button>
 		</form>
