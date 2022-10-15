@@ -65,13 +65,16 @@ class FormBuilderController extends Controller
             {
                 $model=$model->orWhere($data,'ilike','%'.$dataString.'%');
             }
-            foreach (array_keys($foreign) as $key) {
-                $param=$foreign[$key][2];
-                $fModel= explode('\\',$key);
-                $fModel=end($fModel);
-                $model=$model->orWhereHas($fModel, function ($query) use($param,$dataString) {
-                    $query->where($param,'ilike','%'.$dataString.'%');
-                });                
+            if(sizeof((array)$foreign)>0)
+            {
+                foreach (array_keys($foreign) as $key) {
+                    $param=$foreign[$key][2];
+                    $fModel= explode('\\',$key);
+                    $fModel=end($fModel);
+                    $model=$model->orWhereHas($fModel, function ($query) use($param,$dataString) {
+                        $query->where($param,'ilike','%'.$dataString.'%');
+                    });                
+                }
             }
         }
         $model=$model->paginate(30);
