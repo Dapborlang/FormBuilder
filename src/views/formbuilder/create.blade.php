@@ -14,6 +14,7 @@
   @endforeach
 @endif
 <script>
+
 	$(function () {
 		$("select").select2();
 	});
@@ -50,7 +51,9 @@
                             }                            
                         @endphp
                         @if(isset($attribute['type'][$item]) && $attribute['type'][$item]=="hidden")
-                          <input type="{{$attribute['type'][$item]}}"  id="{{$item}}" name="{{$item}}" @if(isset($attribute['value'][$item])) value="{{$attribute['value'][$item]}}" @endif>
+                        <div class="sr-only">
+                        <div class="col-sm-6">
+                          <input type="{{$attribute['type'][$item]}}" class="form-control" id="{{$item}}" name="{{$item}}" @if(isset($attribute['value'][$item])) value="{{$attribute['value'][$item]}}" @endif>
                           @else
                         <div class="col-sm-6 col-xl-4" id="{{$item}}1">
                             <div class="form-group">
