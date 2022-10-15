@@ -3,7 +3,18 @@
 @section('script')
 <link href="{{ asset('rdmarwein/formgen/css/select2.min.css') }}" rel="stylesheet">
 <script src="{{ asset('rdmarwein/formgen/js/select2.full.min.js') }}"></script>
+@if(isset($attribute['css']))  
+  @foreach($attribute['css'] as $item)
+    <link href="{{ asset($item) }}" rel="stylesheet">
+  @endforeach
+@endif
+@if(isset($attribute['script']))  
+  @foreach($attribute['script'] as $item)
+    <script src="{{ asset($item['uri']) }}" @if($item['defer']) defer @endif></script>
+  @endforeach
+@endif
 <script>
+
 	$(function () {
 		$("select").select2();
 	});
@@ -16,7 +27,7 @@
 	        {{ session()->get('message') }}
 	    </div>
 	@endif
-    <form method="POST" action="{{ url('/') }}/formgen/{{$formMaster->id}}/{{$model->id}}" target="">
+    <form method="POST" action="{{ url('/') }}/{{$formMaster->route}}/{{$formMaster->id}}/{{$model->id}}" target="">
         {{ csrf_field() }}
         {{ method_field('PUT') }}
         <div class="card bg-secondary text-white">
@@ -35,6 +46,11 @@
                                 $title=ucwords(str_replace('_',' ',$item));
                             }
                         @endphp
+                        @if(isset($attribute['type'][$item]) && $attribute['type'][$item]=="hidden")
+                    <div class="sr-only">
+                        <div class="col-sm-6">
+                            <input type="{{$attribute['type'][$item]}}" class="form-control" id="{{$item}}" name="{{$item}}" value="{{$model-> $item}}">
+                @else
                         <div class="col-sm-6 col-xl-4" id="{{$item}}1">
                             <div class="form-group">
                                 <label for="{{$item}}">{{$title}}</label>
@@ -58,6 +74,7 @@
                                     @else
                                         <input type="{{$attribute['type'][$item]}}" class="form-control  form-control-sm" id="{{$item}}" name="{{$item}}" @if(isset($attribute) && array_key_exists($item, $attribute)) {{$attribute[$item]}} @endif value="{{$model-> $item}}">
                                     @endif
+                                @endif
                                 @endif
                             </div>
                         </div>
